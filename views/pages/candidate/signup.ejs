@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
-<head>
-</head>
+  <head>
+    <% include ../../partials/header.ejs %>
+  </head>
 
 <body>
 
 
-<div class="jumbotron text-center">
+<div class="jumbotron">
   <div class="container">
     <a href="/" class="lang-logo">
       <img src="/lang-logo.png">
@@ -15,13 +16,15 @@
     <p>Sign up:</p>
 
     <form action="/candidate/create_post" method="post">
-      <label for="name">Enter name: </label>
-      <input id="name" type="text" name="name" value=""></br>
-      <label for="age">Enter age: </label>
-      <input id="age" type="text" name="age" value=""></br>
-      <label for="recovery">How many days since you recovered: </label>
-      <input id="recovery" type="text" name="recovery" value=""></br>
-      <input type="submit" value="OK">
+      <div class="form-group">
+        <label for="name">Enter name: </label>
+        <input id="name" type="text" name="name" value=""></br>
+        <label for="age">Enter age: </label>
+        <input id="age" type="text" name="age" value=""></br>
+        <label for="recovery">How many days since you recovered: </label>
+        <input id="recovery" type="text" name="recovery" value=""></br>
+        <input type="submit" value="OK">
+      </div>
     </form>
 </div>
 </div>
