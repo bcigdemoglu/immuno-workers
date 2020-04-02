@@ -25,7 +25,7 @@ express()
     console.log(req.body);
     const id = uuid.v4();
     candidates[id] = req.body;
-    res.render('pages/candidate/welcome', {user: id});
+    res.render('pages/candidate/welcome', {user: id, name: req.body.name || "IFORGOTMYNAME"});
   })
   .get('/candidate/gallery', (req, res) => res.render('pages/candidate/gallery'))
   .get('/recruiter/login', (req, res) => res.render('pages/recruiter/login'))
