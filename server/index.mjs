@@ -7,7 +7,13 @@ import bodyParser from 'body-parser';
 const PORT = process.env.PORT || 5000;
 const __dirname = path.resolve();
 
-const candidates = {};
+const candidates = {
+  "fakeid": {
+    "name": "Big candidate",
+    "age": 9
+  }
+};
+const recruiters = {};
 
 express()
   .use(express.static(path.join(__dirname, 'public')))
@@ -29,6 +35,17 @@ express()
   })
   .get('/candidate/gallery', (req, res) => res.render('pages/candidate/gallery'))
   .get('/recruiter/login', (req, res) => res.render('pages/recruiter/login'))
-  .get('/recruiter/singup', (req, res) => res.render('pages/recruiter/signup'))
-  .get('/recruiter/gallery', (req, res) => res.render('pages/recruiter/gallery'))
+  .get('/recruiter/signup', (req, res) => res.render('pages/recruiter/signup'))
+  .post('/recruiter/create_account', (req, res) => {
+    console.log(req.body);
+    const id = uuid.v4();
+    recruiters[id] = req.body;
+    // Return all candidates to the recruiter
+    res.render('pages/recruiter/welcome', {user: id, name: req.body.name || "IFORGOTMYNAME"});
+  })
+  .get('/recruiter/gallery', (req, res) => {
+    // Return all candidates to the recruiter
+    console.log(candidates);
+    res.json({candidates});
+  })
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../../partials/header.ejs %>
+  </head>
+
+<body>
+
+
+<div class="jumbotron text-center">
+  <div class="container">
+    <a href="/" class="lang-logo">
+      <img src="/lang-logo.png">
+    </a>
+    <h1>Welcome <%= name%>!</h1>
+    <h3>Your ID is:</h3>
+    <h2><%= user%></h2>
+    <p>View candidates here:</p>
+  </div>
+</div>
+
+<div class="container" id="candidate_gallery">    
+  <div class="row" id="candidate_gallery_row">
+  </div>
+</div><br>
+
+<script>
+  function createImage(id, imglink, headtext, foottext) {
+    const col = $("<div>", {id: `div-${id}`, "class": "col-sm-4"});
+    const panel = $("<div>", {id: `panel-${id}`, "class": "panel panel-success"});
+    const heading = $("<div>", {id: `heading-${id}`, "class": "panel-heading", text: headtext});
+    const imagediv = $("<div>", {id: `imagediv-${id}`, "class": "panel-body"});
+    const image = $("<img>", {id: `image-${id}`, src: imglink, "class": "img-responsive", style:"width:100%", alt:"Image"});
+    const footer = $("<div>", {id: `footer-${id}`, "class": "panel-footer", text: `Age: ${foottext}`});
+    col.append(panel);
+    panel.append(heading, imagediv, footer);
+    imagediv.append(image);
+    return col;
+  }
+
+  $(document).ready(function(){
+    $.getJSON( "/recruiter/gallery", function( data ) {
+
+      for(const candidateId of Object.keys(data.candidates)) {
+        $(createImage(
+          candidateId,
+          "https://picsum.photos/200",
+          data.candidates[candidateId].name,
+          data.candidates[candidateId].age)).appendTo( "#candidate_gallery_row" );
+      }
+
+    });
+  })
+</script>
+
+</body>
+</html>

@@ -1,25 +1,27 @@
 {
-  "name": "node-js-getting-started",
+  "name": "immuno-workers",
   "version": "0.3.0",
-  "description": "A sample Node.js app using Express 4",
+  "description": "A website for immune workers looking for jobs",
   "engines": {
-    "node": "12.x"
+    "node": "13.x"
   },
-  "main": "server/index.js",
   "type": "module",
   "scripts": {
     "push": "git push && git push heroku master",
-    "start": "node server/index.js",
+    "start": "node server/index.mjs",
     "test": "node server/test.js",
-    "local": "heroku local web",
+    "local": "nodemon — exec \"heroku local web\" — signal SIGTERM",
     "remote": "git add . && heroku push master && heroku open"
   },
   "dependencies": {
     "ejs": "^2.5.6",
     "express": "^4.15.2",
-    "uuid": "^7.0.3"
+    "nodemon": "^2.0.2",
+    "uuid": "^7.0.3",
+    "node": "^13.0.0"
   },
   "devDependencies": {
+    "@types/node": "^13.0.0",
     "@types/uuid": "^7.0.2",
     "request": "^2.81.0",
     "tape": "^4.7.0"
