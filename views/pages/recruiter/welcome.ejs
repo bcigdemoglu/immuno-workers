@@ -15,13 +15,16 @@
       <img src="/lang-logo.png">
     </a>
     <h1>Welcome <%= name%>!</h1>
+    <a type="button" class="btn btn-lg btn-primary" href="/recruiter/create_job?id=<%= id%>"><span class="glyphicon glyphicon-flash"></span>Create job</a>
     <h3>Your ID is:</h3>
-    <h2><%= user%></h2>
-    <p>View candidates here:</p>
+    <h2><%= id%></h2>
+    </br>
+    <a id="viewCandidates" type="button" class="btn btn-lg btn-primary"><span class="glyphicon glyphicon-flash"></span>View Candidates</a>
+    <a id="viewJobs" type="button" class="btn btn-lg btn-primary"><span class="glyphicon glyphicon-flash"></span>View Postings</a>
   </div>
 </div>
 
-<div class="container" id="candidate_gallery">    
+<div class="container" id="gallery">    
   <div class="row" id="candidate_gallery_row">
   </div>
 </div><br>
@@ -33,25 +36,45 @@
     const heading = $("<div>", {id: `heading-${id}`, "class": "panel-heading", text: headtext});
     const imagediv = $("<div>", {id: `imagediv-${id}`, "class": "panel-body"});
     const image = $("<img>", {id: `image-${id}`, src: imglink, "class": "img-responsive", style:"width:100%", alt:"Image"});
-    const footer = $("<div>", {id: `footer-${id}`, "class": "panel-footer", text: `Age: ${foottext}`});
+    const footer = $("<div>", {id: `footer-${id}`, "class": "panel-footer", text: foottext});
     col.append(panel);
     panel.append(heading, imagediv, footer);
     imagediv.append(image);
     return col;
   }
 
-  $(document).ready(function(){
+  $("#viewCandidates").click(function(){
     $.getJSON( "/recruiter/gallery", function( data ) {
-
-      for(const candidateId of Object.keys(data.candidates)) {
+      $(" #gallery ").empty();
+      const gallery = $("<div>", {id: "candidate_gallery_row", class: "row"});
+      for(const candidate of data.candidates) {
         $(createImage(
-          candidateId,
+          candidate._id,
           "https://pbs.twimg.com/profile_images/901246721807613952/96vurX5G_400x400.jpg",
-          data.candidates[candidateId].name,
-          data.candidates[candidateId].age)).appendTo( "#candidate_gallery_row" );
+          candidate.name,
+          `Age: ${candidate.age}`)).appendTo(gallery);
       }
-
+      gallery.appendTo( "#gallery" );
     });
+  });
+
+  $("#viewJobs").click(function(){
+    $.getJSON( "/job/gallery", function( data ) {
+      $(" #gallery ").empty();
+      const gallery = $("<div>", {id: "job_gallery_row", class: "row"});
+      for(const job of data.jobs) {
+        $(createImage(
+          job._id,
+          "https://pics.me.me/cant-get-fired-if-you-dont-have-ajob-make-a-16046374.png",
+          job.company,
+          `Title: ${job.title}`)).appendTo(gallery);
+      }
+      gallery.appendTo( "#gallery" );
+    });
+  });
+
+  $(document).ready(function(){
+    $("#viewCandidates").click();
   })
 </script>
 

@@ -14,64 +14,42 @@
     </a>
     <h1>Welcome <%= name%>!</h1>
     <h3>Your ID is:</h3>
-    <h2><%= user%></h2>
+    <h2><%= id%></h2>
     <p>Apply jobs here:</p>
   </div>
 </div>
 
-
-<div class="container">    
-  <div class="row">
-    <div class="col-sm-4">
-      <div class="panel panel-primary">
-        <div class="panel-heading">BLACK FRIDAY DEAL</div>
-        <div class="panel-body"><img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image"></div>
-        <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
-      </div>
-    </div>
-    <div class="col-sm-4"> 
-      <div class="panel panel-danger">
-        <div class="panel-heading">BLACK FRIDAY DEAL</div>
-        <div class="panel-body"><img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image"></div>
-        <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
-      </div>
-    </div>
-    <div class="col-sm-4"> 
-      <div class="panel panel-success">
-        <div class="panel-heading">BLACK FRIDAY DEAL</div>
-        <div class="panel-body"><img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image"></div>
-        <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
-      </div>
-    </div>
+<div class="container" id="gallery">    
+  <div class="row" id="job_gallery_row">
   </div>
 </div><br>
 
-<div class="container">    
-  <div class="row">
-    <div class="col-sm-4">
-      <div class="panel panel-primary">
-        <div class="panel-heading">BLACK FRIDAY DEAL</div>
-        <div class="panel-body"><img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image"></div>
-        <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
-      </div>
-    </div>
-    <div class="col-sm-4"> 
-      <div class="panel panel-primary">
-        <div class="panel-heading">BLACK FRIDAY DEAL</div>
-        <div class="panel-body"><img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image"></div>
-        <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
-      </div>
-    </div>
-    <div class="col-sm-4"> 
-      <div class="panel panel-primary">
-        <div class="panel-heading">BLACK FRIDAY DEAL</div>
-        <div class="panel-body"><img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image"></div>
-        <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
-      </div>
-    </div>
-  </div>
-</div><br><br>
+<script>
+  function createImage(id, imglink, headtext, foottext) {
+    const col = $("<div>", {id: `div-${id}`, "class": "col-sm-4"});
+    const panel = $("<div>", {id: `panel-${id}`, "class": "panel panel-success"});
+    const heading = $("<div>", {id: `heading-${id}`, "class": "panel-heading", text: headtext});
+    const imagediv = $("<div>", {id: `imagediv-${id}`, "class": "panel-body"});
+    const image = $("<img>", {id: `image-${id}`, src: imglink, "class": "img-responsive", style:"width:100%", alt:"Image"});
+    const footer = $("<div>", {id: `footer-${id}`, "class": "panel-footer", text: `Title: ${foottext}`});
+    col.append(panel);
+    panel.append(heading, imagediv, footer);
+    imagediv.append(image);
+    return col;
+  }
 
+  $(document).ready(function(){
+    $.getJSON( "/job/gallery", function( data ) {
+      for(const job of data.jobs) {
+        $(createImage(
+          job._id,
+          "https://pics.me.me/cant-get-fired-if-you-dont-have-ajob-make-a-16046374.png",
+          job.company,
+          job.title)).appendTo( "#job_gallery_row" );
+      }
+    });
+  })
+</script>
 
 </body>
 </html>

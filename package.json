@@ -7,20 +7,29 @@
   },
   "type": "module",
   "scripts": {
+    "cleanup": "rm -r var",
+    "start_mongo": "npm run stop_mongo && npm run cleanup && mkdir -p var/mongo-db var/log/mongodb; mongod --dbpath var/mongo-db --logpath var/log/mongodb/mongod.log --fork; mongo data/localdb.js",
+    "stop_mongo": "mongo admin data/shutdowndb.js",
     "push": "git push && git push heroku master",
-    "start": "node server/index.mjs",
+    "start": "node server/index.js",
     "test": "node server/test.js",
-    "local": "nodemon — exec \"heroku local web\" — signal SIGTERM",
+    "local": "npm run start_mongo && nodemon — exec \"heroku local web\" — signal SIGTERM",
     "remote": "git add . && heroku push master && heroku open"
   },
   "dependencies": {
-    "ejs": "^2.5.6",
-    "express": "^4.15.2",
+    "ejs": "^3.0.0",
+    "express": "^4.17.1",
+    "mongodb": "^3.5.5",
+    "mongoose": "^5.9.7",
+    "node": "^13.0.0",
     "nodemon": "^2.0.2",
-    "uuid": "^7.0.3",
-    "node": "^13.0.0"
+    "uuid": "^7.0.3"
   },
   "devDependencies": {
+    "@types/ejs": "^3.0.0",
+    "@types/express": "^4.17.1",
+    "@types/mongodb": "^3.5.4",
+    "@types/mongoose": "^5.7.8",
     "@types/node": "^13.0.0",
     "@types/uuid": "^7.0.2",
     "request": "^2.81.0",

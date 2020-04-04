@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../../partials/header.ejs %>
+  </head>
+
+<body>
+
+
+<div class="jumbotron">
+  <div class="container">
+    <a href="/" class="lang-logo">
+      <img src="/lang-logo.png">
+    </a>
+    <h1>Welcome <%= name%>!</h1>
+    <p>Create job:</p>
+
+    <form action="/job/create" method="post">
+      <div class="form-group">
+        <label for="title">Job Tile: </label>
+        <input id="title" type="text" name="title">
+        </br>
+        <input type="hidden" name="companyId" value=<%= id%> />
+        <input type="submit" value="Create job">
+      </div>
+    </form>
+</div>
+</div>
+
+</body>
+</html>
