@@ -13,7 +13,8 @@
       <img src="/lang-logo.png">
     </a>
     <h1>Welcome candidate!</h1>
-    <p>Sign up:</p>
+    <a type="button" class="btn btn-md btn-primary" href="/candidate/guest"><span class="glyphicon glyphicon-flash"></span>Enter as guest</a>
+    <h2>Sign up:</h2>
 
     <form action="/candidate/create_post" method="post">
       <div class="form-group">
@@ -32,7 +33,7 @@
         <label class="control-label" for="date">When did you recover: </label>
         <input id="date" name="date" placeholder="MM/DD/YYY" type="text"/>
         </br>
-        <input type="submit" value="Create candidate ID">
+        <input type="submit" class="btn btn-lg btn-primary" value="Create candidate ID">
       </div>
     </form>
 </div>

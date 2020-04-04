@@ -30,6 +30,9 @@ express()
     const candidateData = await service.getCandidate(req.query.id);
     res.render('pages/candidate/welcome', {id: candidateData._id, name: candidateData.name});
   })
+  .get('/candidate/guest', async (req, res) => {
+    res.render('pages/candidate/welcome', {id: "0", name: "guest"});
+  })
   .get('/candidate/gallery', (req, res) => res.render('pages/candidate/gallery'))
   .get('/recruiter/login', (req, res) => res.render('pages/recruiter/login'))
   .get('/recruiter/signup', (req, res) => res.render('pages/recruiter/signup'))
