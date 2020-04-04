@@ -4,7 +4,7 @@ import express from 'express';
 import path from 'path';
 import uuid from 'uuid';
 import bodyParser from 'body-parser';
-import * as service from './service.js';
+import * as service from './service.mjs';
 const PORT = process.env.PORT || 5000;
 const __dirname = path.resolve();
 
