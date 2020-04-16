@@ -1,6 +1,8 @@
 # immuno-workers
 COVID-19 Immune Worker Listings
 
+Demo: https://immuno-workers.herokuapp.com/
+
 ## Running Locally
 
 Make sure you have [Node.js](http://nodejs.org/) and the [Heroku CLI](https://cli.heroku.com/) installed.
